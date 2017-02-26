@@ -1,0 +1,35 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <script>
+        var r = new XMLHttpRequest();
+       // r.open("GET", "https://huxley.apphb.com/all/rdg/from/did/1?accessToken=DA1C7740-9DA0-11E4-80E6-A920340000B1", true);
+          r.open("GET", "https://huxley.apphb.com/arrivals/did/to/rdg/6?accessToken=DA1C7740-9DA0-11E4-80E6-A920340000B1", true);
+          
+          r.onreadystatechange = function () {
+            if (r.readyState != 4 || r.status != 200) return;
+            var resp = JSON.parse(r.response);
+            if (resp.trainServices && resp.trainServices.length > 0) {
+               for(var count = 0; count < resp.trainServices.length; ++count) {
+                //   alert("The next train to arrive at " + resp.locationName + " from " + resp.filterLocationName + 
+                //        " will get in at " + resp.trainServices[count].sta);
+
+                 document.write("The next train depature from " + resp.locationName + " to " + resp.filterLocationName + 
+                       " at " + resp.trainServices[count].sta);
+                // document.write("\n");
+                document.write("<br>");
+                }
+            } else {
+                alert("Sorry, no trains from " + resp.filterLocationName + " arriving soon");
+            }
+        };
+        r.send();
+    </script>
+</head>
+
+<body>
+    my train
+</body>
+
+</html>
